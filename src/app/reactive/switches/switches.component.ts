@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-switches',
@@ -6,11 +7,51 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class SwitchesComponent implements OnInit {
+export class SwitchesComponent  {
 
-  constructor() { }
+  miFormulario:FormGroup = this.frmBuilder.group({
+    genero:['M',Validators.required],
+    notificaciones:[true,Validators.required],
+    condiciones:[false,Validators.requiredTrue]
+  });
+
+  persona = {
+    genero:'F',
+    notificaciones: true
+  }
+  
+  
+  constructor(private frmBuilder:FormBuilder) { }
+
 
   ngOnInit(): void {
+    this.miFormulario.reset({
+      ...this.persona,
+      condiciones:false
+    });
+
+    // Actualizando obj persona con la eliminacion del elemento condiciones
+
+    // this.miFormulario.valueChanges.subscribe(form => {
+    //   delete form.condiciones;
+    //   this.persona = form;
+    // });
+
+    // Actualizando los valores con desestructuracion
+    this.miFormulario.valueChanges.subscribe(({condiciones , ...rest}) =>{
+      this.persona = rest;
+    });
+
   }
+
+  guardar(){
+    // const frmValue = { ...this.miFormulario.value };
+
+    // delete frmValue.condiciones;
+    // this.persona = frmValue;
+
+    console.log(this.persona);
+  }
+
 
 }
