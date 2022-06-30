@@ -21,3 +21,16 @@
         routerLinkActive="active" > {{ rmenuItem.texto }} </li>
     
 </ul>
+
+<br><br>
+
+<h2>Auth</h2>
+<hr>
+<ul class="list-group">
+    <li 
+        class="list-group-item"
+        *ngFor="let authItem of authMenu"  
+        [routerLink] = "[authItem.ruta]"
+        routerLinkActive="active" > {{ authItem.texto }} </li>
+    
+</ul>
